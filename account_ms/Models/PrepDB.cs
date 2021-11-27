@@ -10,11 +10,10 @@ namespace account_ms.Models
     {
         public static void PrepPopulation(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.CretateScope())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                SeedData(serviceScope.ServiceProvider.GetService<DataContext>())
+                SeedData(serviceScope.ServiceProvider.GetService<DataContext>());
             }
-
         }
 
         public static void SeedData(DataContext context)
