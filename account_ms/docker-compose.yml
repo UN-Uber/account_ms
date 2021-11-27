@@ -1,4 +1,8 @@
 version: '3.4'
+networks:
+  dockerapi-dev:
+    driver: bridge
+
 services:
   postgres_image:
     image: postgres:latest
@@ -9,7 +13,17 @@ services:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
       POSTGRES_DB: "accountdb"
+    networks:
+      - dockerapi-dev
   account_ms:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_CONNECTION_STRING: "Host=postgres_image;port=5432;Database=accountdb;Username=admin;Password=admin"
     ports:
-      - "8080:80"
+      - "8000:80"
+    depends_on:
+      - postgres_image
+    networks:
+      - dockerapi-dev

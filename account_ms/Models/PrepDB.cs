@@ -24,8 +24,8 @@ namespace account_ms.Models
             if(!context.Clients.Any())
             {
                 System.Console.WriteLine("Se agrega nueva informacion a la base vacia");
-                context.Clients.AddRange(
-                    new Client{
+                var first = new Client{
+                        idClient = 0,
                         fName = "Alejnadro",
                         sName = "Oscar",
                         sureName = "Gomez",
@@ -33,9 +33,10 @@ namespace account_ms.Models
                         active = 0,
                         email = "ogomezs@correo.com",
                         password = "pass"
-                    }
-                );           
-            }
+                };
+                context.Clients.Add(first);
+                context.SaveChanges();
+            }          
         }
     }
 }
