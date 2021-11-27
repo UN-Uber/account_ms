@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  postgres_image:
+    image: postgres:latest
+    ports: 
+      - "5432"
+    restart: always
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "accountdb"
+  account_ms:
+    build: .
+    ports:
+      - "8080:80"
