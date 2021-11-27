@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using account_ms.Repositories;
 using account_ms.Data;
+using account_ms.Models;
 
 namespace account_ms
 {
@@ -61,6 +62,8 @@ namespace account_ms
             {
                 endpoints.MapControllers();
             });
+
+            PrepDB.PrepPopulation(app);
         }
     }
 }
