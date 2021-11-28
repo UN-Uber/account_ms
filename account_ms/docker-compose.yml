@@ -2,6 +2,8 @@ version: '3.4'
 networks:
   dockerapi-dev:
     driver: bridge
+volumes:
+  pgdata:
 
 services:
   postgres_image:
@@ -15,6 +17,8 @@ services:
       POSTGRES_DB: "accountdb"
     networks:
       - dockerapi-dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   account_ms:
     build: 
       context: .
@@ -24,6 +28,6 @@ services:
     ports:
       - "8000:80"
     depends_on:
-      - postgres_image
+      - "postgres_image"
     networks:
       - dockerapi-dev
