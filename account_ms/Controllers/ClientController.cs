@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using account_ms.Dtos;
 using account_ms.Models;
 using account_ms.Repositories;
+using account_ms.Services;
 
 namespace account_ms.Controllers
 {   
@@ -45,6 +46,7 @@ namespace account_ms.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateClient(CreateClientDto createClientDto)
         {
+            PassCrip passCrip = new PassCrip();
             var client = new Client
             {
                 fName = createClientDto.fName,
@@ -53,7 +55,7 @@ namespace account_ms.Controllers
                 telNumber = createClientDto.telNumber,
                 active = createClientDto.active,
                 email = createClientDto.email,
-                password = createClientDto.password
+                password = passCrip.hashPass(createClientDto.password) 
             };
             await _clientRepository.Add(client);
             return Ok();
@@ -65,8 +67,6 @@ namespace account_ms.Controllers
             var client = await _clientRepository.Get(id);
             if(client == null)
             {
-                //var message = string.Format("Client with id = {0} was not found", id);
-                //HttpError err = new HttpError(message);
                 return NotFound();
             }
             await _clientRepository.Delete(id);
@@ -93,7 +93,6 @@ namespace account_ms.Controllers
                 email = updateClientDto.email,
                 password = updateClientDto.password
             };
-
             await _clientRepository.Update(client);
             return Ok();
         }

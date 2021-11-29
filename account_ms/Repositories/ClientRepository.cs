@@ -73,6 +73,5 @@ namespace account_ms.Repositories
                 return cards;
             }
         }
-
     }
 }

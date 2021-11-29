@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace account_ms.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +35,7 @@ namespace account_ms.Migrations
                     idClient = table.Column<int>(type: "integer", nullable: false),
                     cardNumber = table.Column<long>(type: "bigint", nullable: false),
                     dueDate = table.Column<string>(type: "varChar(150)", nullable: false),
-                    cvv = table.Column<string>(type: "varChar(150)", nullable: false)
+                    cvv = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

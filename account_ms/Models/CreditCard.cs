@@ -29,8 +29,8 @@ namespace account_ms.Models
         public string dueDate { get; set; }
 
         [Required]
-        [Column("cvv", TypeName = "varChar(150)")]
+        [Column("cvv", TypeName = "integer")]
         [Display(Name = "CVV")]
-        public string cvv { get; set; }
+        public int cvv { get; set; }
     }
 }

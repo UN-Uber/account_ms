@@ -26,7 +26,7 @@ namespace account_ms.Controllers
             return Ok(cards);
         }
 
-        // GET api/<CreditCardController>/5
+        // GET api/<CreditCardController>
         [HttpGet("{id}")]
         public async Task<ActionResult<CreditCard>> GetCreditCard(int id)
         {
@@ -56,7 +56,7 @@ namespace account_ms.Controllers
             return Ok();
         }
 
-        // PUT api/<CreditCardController>/5
+        // PUT api/<CreditCardController>
         [HttpPut("{id}")]
         public async Task<ActionResult>  UpdateCreditCard(int id, UpdateCreditCardDtos updateCreditCardDtos)
         {

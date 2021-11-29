@@ -5,6 +5,6 @@
         public int idClient { get; set; }
         public long cardNumber { get; set; }
         public string dueDate { get; set; }
-        public string cvv { get; set; }
+        public int cvv { get; set; }
     }
 }

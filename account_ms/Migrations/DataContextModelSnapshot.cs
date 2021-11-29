@@ -73,9 +73,8 @@ namespace account_ms.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("cardNumber");
 
-                    b.Property<string>("cvv")
-                        .IsRequired()
-                        .HasColumnType("varChar(150)")
+                    b.Property<int>("cvv")
+                        .HasColumnType("integer")
                         .HasColumnName("cvv");
 
                     b.Property<string>("dueDate")

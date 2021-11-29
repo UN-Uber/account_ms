@@ -9,8 +9,8 @@ using account_ms.Data;
 namespace account_ms.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211127050248_initialMigration")]
-    partial class initialMigration
+    [Migration("20211129035521_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,9 +75,8 @@ namespace account_ms.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("cardNumber");
 
-                    b.Property<string>("cvv")
-                        .IsRequired()
-                        .HasColumnType("varChar(150)")
+                    b.Property<int>("cvv")
+                        .HasColumnType("integer")
                         .HasColumnName("cvv");
 
                     b.Property<string>("dueDate")
