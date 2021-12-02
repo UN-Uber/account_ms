@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using account_ms.Repositories;
 using account_ms.Data;
 using account_ms.Models;
+using account_ms.Services;
 
 namespace account_ms
 {
@@ -50,7 +51,12 @@ namespace account_ms
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "account_ms v1"));
+            }else{
+                app.UseExceptionHandler("/error");
+                app.UseReverseProxyHttpsEnforcer();
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 

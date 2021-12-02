@@ -13,6 +13,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "account_ms.dll"]
+#ENTRYPOINT ["dotnet", "account_ms.dll"]
 
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet account_ms.dll
