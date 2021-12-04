@@ -47,6 +47,11 @@ namespace account_ms.Models
         [Display(Name = "Password")]
         public string password { get; set; }
 
+        [Required]
+        [Column("image", TypeName= "varChar(150)")]
+        [Display(Name = "image")]
+        public string image {get; set;}
+
         [JsonIgnore]
         public List<CreditCard> creditCards { get; set; }
     }

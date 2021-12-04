@@ -9,7 +9,7 @@ using account_ms.Data;
 namespace account_ms.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211129035521_InitialMigration")]
+    [Migration("20211204153729_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,11 @@ namespace account_ms.Migrations
                         .IsRequired()
                         .HasColumnType("varChar(150)")
                         .HasColumnName("fName");
+
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("varChar(150)")
+                        .HasColumnName("image");
 
                     b.Property<string>("password")
                         .IsRequired()

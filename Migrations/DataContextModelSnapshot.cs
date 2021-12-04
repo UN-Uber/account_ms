@@ -39,6 +39,11 @@ namespace account_ms.Migrations
                         .HasColumnType("varChar(150)")
                         .HasColumnName("fName");
 
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("varChar(150)")
+                        .HasColumnName("image");
+
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("varChar(150)")

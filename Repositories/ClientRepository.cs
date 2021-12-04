@@ -57,6 +57,7 @@ namespace account_ms.Repositories
                 clientUp.sName = client.sureName;
                 clientUp.telNumber = client.telNumber;
                 clientUp.sureName = client.sureName;
+                clientUp.image = client.image;
                 await _context.SaveChangesAsync();
             }
         }

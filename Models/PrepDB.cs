@@ -32,7 +32,8 @@ namespace account_ms.Models
                         telNumber = 3156240783,
                         active = 0,
                         email = "ogomezs@correo.com",
-                        password = "pass"
+                        password = "pass",
+                        image = "https://cdn.onlinewebfonts.com/svg/img_166744.png"
                 };
                 context.Clients.Add(first);
                 context.SaveChanges();

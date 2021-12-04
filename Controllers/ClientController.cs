@@ -91,7 +91,8 @@ namespace account_ms.Controllers
                 telNumber = updateClientDto.telNumber,
                 active = updateClientDto.active,
                 email = updateClientDto.email,
-                password = updateClientDto.password
+                password = updateClientDto.password,
+                image = updateClientDto.image
             };
             await _clientRepository.Update(client);
             return Ok();

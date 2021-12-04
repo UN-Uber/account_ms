@@ -19,7 +19,8 @@ namespace account_ms.Migrations
                     Active = table.Column<int>(type: "integer", nullable: false),
                     email = table.Column<string>(type: "varChar(150)", nullable: false),
                     telNumber = table.Column<long>(type: "bigint", nullable: false),
-                    password = table.Column<string>(type: "varChar(150)", nullable: false)
+                    password = table.Column<string>(type: "varChar(150)", nullable: false),
+                    image = table.Column<string>(type: "varChar(150)", nullable: false)
                 },
                 constraints: table =>
                 {
