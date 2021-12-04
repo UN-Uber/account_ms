@@ -55,7 +55,8 @@ namespace account_ms.Controllers
                 telNumber = createClientDto.telNumber,
                 active = createClientDto.active,
                 email = createClientDto.email,
-                password = passCrip.hashPass(createClientDto.password) 
+                password = passCrip.hashPass(createClientDto.password),
+                image = createClientDto.image
             };
             await _clientRepository.Add(client);
             return Ok();
