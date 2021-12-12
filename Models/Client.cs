@@ -40,6 +40,7 @@ namespace account_ms.Models
         [Required]
         [Column("telNumber")]
         [Display(Name = "Phone Number")]
+        [MaxLength(10, ErrorMessage="Max cvv length is 10"),MinLength(7, ErrorMessage="Min cvv length is 7")]
         public long telNumber { get; set; }
 
         [Required]

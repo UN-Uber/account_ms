@@ -10,6 +10,16 @@ namespace account_ms.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        modelBuilder.Entity<Client>()
+            .HasIndex(p => new { p.email, p.telNumber })
+            .IsUnique(true);
+        modelBuilder.Entity<CreditCard>()
+            .HasIndex(p => new { p.cardNumber })
+            .IsUnique(true);
+        }
+
         public DbSet<Client> Clients {get; set;}
         public DbSet<CreditCard> CreditCards {get; set;}
     }

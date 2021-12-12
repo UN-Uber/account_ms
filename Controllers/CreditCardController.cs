@@ -53,7 +53,7 @@ namespace account_ms.Controllers
                 dueDate = createCreditCardDtos.dueDate
             };
             await _creditCardRepository.Add(card);
-            return Ok();
+            return Ok(card.idCard);
         }
 
         // PUT api/<CreditCardController>

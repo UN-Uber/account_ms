@@ -12,5 +12,7 @@ namespace account_ms.Repositories
         Task Delete(int id);
         Task Update(Client client);
         Task<IEnumerable<CreditCard>> GetCards(int id);
+        Task<Client> getEmail(String email);
+        Task<Client> getTelNumber(long telNumber);
     }
 }

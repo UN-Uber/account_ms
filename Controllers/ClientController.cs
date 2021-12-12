@@ -59,7 +59,7 @@ namespace account_ms.Controllers
                 image = createClientDto.image
             };
             await _clientRepository.Add(client);
-            return Ok();
+            return Ok(client.idClient);
         }
 
         [HttpDelete("{id}")]
@@ -111,5 +111,27 @@ namespace account_ms.Controllers
             var cards = await _clientRepository.GetCards(id);
             return Ok(cards);
         } 
+
+        [HttpGet("enter")]
+        public async Task<ActionResult<AutenticateClientResponse>> Autenticate(AutenticateClientDto acd)
+        {   
+            var client;
+            if(acd.email == ""){
+                client = await _clientRepository.getEmail(acd.telNumber);
+            }else{
+                client = await _clientRepository.getEmail(acd.email);
+            }
+
+            AutenticateClientResponse acr = new AutenticateClientResponse();
+            if(client == null){
+                acr.response = "Email ni Numero encontrado";
+                return Ok(acr);
+            }else{
+                VerifyPass verPass = new VerifyPass();
+                acr.response = verPass.verify(acd, client);
+                return Ok(acr);
+            }
+
+        }
     }
 }
