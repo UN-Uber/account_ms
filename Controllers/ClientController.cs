@@ -55,10 +55,11 @@ namespace account_ms.Controllers
                 telNumber = createClientDto.telNumber,
                 active = createClientDto.active,
                 email = createClientDto.email,
-                password = passCrip.hashPass(createClientDto.password) 
+                password = passCrip.hashPass(createClientDto.password),
+                image = createClientDto.image
             };
             await _clientRepository.Add(client);
-            return Ok();
+            return Ok(client.idClient);
         }
 
         [HttpDelete("{id}")]
@@ -91,7 +92,8 @@ namespace account_ms.Controllers
                 telNumber = updateClientDto.telNumber,
                 active = updateClientDto.active,
                 email = updateClientDto.email,
-                password = updateClientDto.password
+                password = updateClientDto.password,
+                image = updateClientDto.image
             };
             await _clientRepository.Update(client);
             return Ok();
@@ -109,5 +111,26 @@ namespace account_ms.Controllers
             var cards = await _clientRepository.GetCards(id);
             return Ok(cards);
         } 
+
+        [HttpGet("enter")]
+        public async Task<ActionResult<AutenticateClientResponse>> Autenticate(AutenticateClientDto acd)
+        {   
+            var client;
+            if(acd.email == ""){
+                client = await _clientRepository.getEmail(acd.telNumber);
+            }else{
+                client = await _clientRepository.getEmail(acd.email);
+            }
+
+            AutenticateClientResponse acr = new AutenticateClientResponse();
+            if(client == null){
+                acr.response = "Email ni Numero encontrado";
+                return Ok(acr);
+            }else{
+                VerifyPass verPass = new VerifyPass();
+                acr.response = verPass.verify(acd, client);
+                return Ok(acr);
+            }
+        }
     }
 }

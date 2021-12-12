@@ -36,7 +36,6 @@ namespace account_ms.Repositories
         public async Task<Client> Get(int id)
         {
             return await _context.Clients.FindAsync(id);
-
         }
 
         public async Task<IEnumerable<Client>> GetAll()
@@ -57,6 +56,7 @@ namespace account_ms.Repositories
                 clientUp.sName = client.sureName;
                 clientUp.telNumber = client.telNumber;
                 clientUp.sureName = client.sureName;
+                clientUp.image = client.image;
                 await _context.SaveChangesAsync();
             }
         }
@@ -72,6 +72,14 @@ namespace account_ms.Repositories
                 var cards = await _context.CreditCards.Where(x => x.idClient == client.idClient).ToListAsync();
                 return cards;
             }
+        }
+
+        public async Task<Client> getEmail(String email){
+            var client = await _context.Clients.where(c => c.email == email).FirstOrDefault<Client>();
+        }
+
+        public async Task<Client> getTelNumber(long telNumber){
+            var Client = await _context.Clients.where(c => c.telNumber = telNumber),FirstOrDefault<Client>(); 
         }
     }
 }

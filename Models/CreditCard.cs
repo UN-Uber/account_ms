@@ -31,6 +31,7 @@ namespace account_ms.Models
         [Required]
         [Column("cvv", TypeName = "integer")]
         [Display(Name = "CVV")]
+        [MaxLength(4, ErrorMessage="Max cvv length is 4"),MinLength(3, ErrorMessage="Min cvv length is 3")]
         public int cvv { get; set; }
     }
 }

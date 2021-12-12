@@ -40,12 +40,18 @@ namespace account_ms.Models
         [Required]
         [Column("telNumber")]
         [Display(Name = "Phone Number")]
+        [MaxLength(10, ErrorMessage="Max cvv length is 10"),MinLength(7, ErrorMessage="Min cvv length is 7")]
         public long telNumber { get; set; }
 
         [Required]
         [Column("password", TypeName = "varChar(150)")]
         [Display(Name = "Password")]
         public string password { get; set; }
+
+        [Required]
+        [Column("image", TypeName= "varChar(150)")]
+        [Display(Name = "image")]
+        public string image {get; set;}
 
         [JsonIgnore]
         public List<CreditCard> creditCards { get; set; }
