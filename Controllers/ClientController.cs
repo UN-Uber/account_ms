@@ -79,7 +79,7 @@ namespace account_ms.Controllers
         public async Task<ActionResult> UpdateClient(int id, UpdateClientDto updateClientDto)
         {
             var clientEx = await _clientRepository.Get(id);
-            
+            PassCrip passCrip = new PassCrip();
             if (clientEx == null) { 
                 return NotFound();
             }
@@ -93,7 +93,7 @@ namespace account_ms.Controllers
                 telNumber = updateClientDto.telNumber,
                 active = updateClientDto.active,
                 email = updateClientDto.email,
-                password = updateClientDto.password,
+                password = passCrip.hashPass(updateClientDto.password),
                 image = updateClientDto.image
             };
             await _clientRepository.Update(client);
