@@ -1,16 +1,17 @@
-using namespace.Dtos;
+using account_ms.Dtos;
 using account_ms.Services;
 using account_ms.Repositories;
+using account_ms.Models;
 
-namespace account_ms
+namespace account_ms.Services
 {
     public class VerifyPass
     {   
         PassCrip passCrip = new PassCrip();
-        public String verify(AutenticateClientDto acd, Client client)
+        public string verify(AtenticateClientDto acd, Client client)
         {   
-            string hashed = passCrip.hashPass(acd.password);
-            if(hashed == client.password){
+            bool result = passCrip.rehash(acd.password, client.password);
+            if(result){
                 return("Correct");
             }else{
                 return("Incorrect");

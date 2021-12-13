@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace account_ms.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +18,9 @@ namespace account_ms.Migrations
                     sureName = table.Column<string>(type: "varChar(150)", nullable: false),
                     Active = table.Column<int>(type: "integer", nullable: false),
                     email = table.Column<string>(type: "varChar(150)", nullable: false),
-                    telNumber = table.Column<long>(type: "bigint", nullable: false),
-                    password = table.Column<string>(type: "varChar(150)", nullable: false)
+                    telNumber = table.Column<long>(type: "bigint", maxLength: 10, nullable: false),
+                    password = table.Column<string>(type: "varChar(150)", nullable: false),
+                    image = table.Column<string>(type: "varChar(150)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,7 +36,7 @@ namespace account_ms.Migrations
                     idClient = table.Column<int>(type: "integer", nullable: false),
                     cardNumber = table.Column<long>(type: "bigint", nullable: false),
                     dueDate = table.Column<string>(type: "varChar(150)", nullable: false),
-                    cvv = table.Column<int>(type: "integer", nullable: false)
+                    cvv = table.Column<int>(type: "integer", maxLength: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,6 +48,24 @@ namespace account_ms.Migrations
                         principalColumn: "idClient",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Client_email",
+                table: "Client",
+                column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Client_telNumber",
+                table: "Client",
+                column: "telNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditCard_cardNumber",
+                table: "CreditCard",
+                column: "cardNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CreditCard_idClient",

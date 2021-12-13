@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using account_ms.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace account_ms.Repositories
 {
@@ -12,7 +13,7 @@ namespace account_ms.Repositories
         Task Delete(int id);
         Task Update(Client client);
         Task<IEnumerable<CreditCard>> GetCards(int id);
-        Task<Client> getEmail(String email);
+        Task<Client> getEmail(string email);
         Task<Client> getTelNumber(long telNumber);
     }
 }

@@ -9,8 +9,8 @@ using account_ms.Data;
 namespace account_ms.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211129035521_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211213000551_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,11 @@ namespace account_ms.Migrations
                         .HasColumnType("varChar(150)")
                         .HasColumnName("fName");
 
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("varChar(150)")
+                        .HasColumnName("image");
+
                     b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("varChar(150)")
@@ -56,10 +61,17 @@ namespace account_ms.Migrations
                         .HasColumnName("sureName");
 
                     b.Property<long>("telNumber")
+                        .HasMaxLength(10)
                         .HasColumnType("bigint")
                         .HasColumnName("telNumber");
 
                     b.HasKey("idClient");
+
+                    b.HasIndex("email")
+                        .IsUnique();
+
+                    b.HasIndex("telNumber")
+                        .IsUnique();
 
                     b.ToTable("Client");
                 });
@@ -76,6 +88,7 @@ namespace account_ms.Migrations
                         .HasColumnName("cardNumber");
 
                     b.Property<int>("cvv")
+                        .HasMaxLength(4)
                         .HasColumnType("integer")
                         .HasColumnName("cvv");
 
@@ -89,6 +102,9 @@ namespace account_ms.Migrations
                         .HasColumnName("idClient");
 
                     b.HasKey("idCard");
+
+                    b.HasIndex("cardNumber")
+                        .IsUnique();
 
                     b.HasIndex("idClient");
 

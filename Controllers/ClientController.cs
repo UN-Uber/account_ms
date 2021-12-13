@@ -7,6 +7,7 @@ using account_ms.Dtos;
 using account_ms.Models;
 using account_ms.Repositories;
 using account_ms.Services;
+using System.Linq;
 
 namespace account_ms.Controllers
 {   
@@ -112,19 +113,20 @@ namespace account_ms.Controllers
             return Ok(cards);
         } 
 
-        [HttpGet("enter")]
-        public async Task<ActionResult<AutenticateClientResponse>> Autenticate(AutenticateClientDto acd)
+        [HttpPost("enter")]
+        public async Task<ActionResult<AutenticateClientResponse>> Autenticate(AtenticateClientDto acd)
         {   
-            var client;
+            var client = new Client();
             if(acd.email == ""){
-                client = await _clientRepository.getEmail(acd.telNumber);
+                client = await _clientRepository.getTelNumber(acd.telNumber);
             }else{
                 client = await _clientRepository.getEmail(acd.email);
             }
 
+
             AutenticateClientResponse acr = new AutenticateClientResponse();
-            if(client == null){
-                acr.response = "Email ni Numero encontrado";
+            if(client.fName == null){
+                acr.response = "Email nor Number found";
                 return Ok(acr);
             }else{
                 VerifyPass verPass = new VerifyPass();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using account_ms.Models;
+using System.Linq;
 
 namespace account_ms.Data
 {
@@ -13,7 +14,10 @@ namespace account_ms.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         modelBuilder.Entity<Client>()
-            .HasIndex(p => new { p.email, p.telNumber })
+            .HasIndex(p => new { p.telNumber })
+            .IsUnique(true);
+        modelBuilder.Entity<Client>()
+            .HasIndex(p => new { p.email})
             .IsUnique(true);
         modelBuilder.Entity<CreditCard>()
             .HasIndex(p => new { p.cardNumber })

@@ -75,11 +75,23 @@ namespace account_ms.Repositories
         }
 
         public async Task<Client> getEmail(String email){
-            var client = await _context.Clients.where(c => c.email == email).FirstOrDefault<Client>();
+            var clients = await _context.Clients.Where(c => c.email == email).ToListAsync();
+            if(clients.Count == 0){
+                var clientEm = new Client();
+                return clientEm ;
+            }
+            var client = clients[0];
+            return client;
         }
 
         public async Task<Client> getTelNumber(long telNumber){
-            var Client = await _context.Clients.where(c => c.telNumber = telNumber),FirstOrDefault<Client>(); 
+            var clients = await _context.Clients.Where(c => c.telNumber == telNumber).ToListAsync(); 
+            if(clients.Count == 0){
+                var clientEm = new Client();
+                return clientEm ;
+            }
+            var client = clients[0];
+            return client;
         }
     }
 }
