@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+//using static System.Exception;
 using account_ms.Dtos;
 using account_ms.Models;
 using account_ms.Repositories;
@@ -43,8 +44,9 @@ namespace account_ms.Controllers
 
         // POST api/<CreditCardController>
         [HttpPost]
-        public async Task<ActionResult> CreateCreditCard(CreateCreditCardDtos createCreditCardDtos)
-        {
+        public async Task<ActionResult<AutenticateClientResponse>> CreateCreditCard(CreateCreditCardDtos createCreditCardDtos)
+        {   
+            AutenticateClientResponse acr = new AutenticateClientResponse();
             var card = new CreditCard
             {
                 cardNumber = createCreditCardDtos.cardNumber,
@@ -52,8 +54,14 @@ namespace account_ms.Controllers
                 cvv = createCreditCardDtos.cvv,
                 dueDate = createCreditCardDtos.dueDate
             };
-            await _creditCardRepository.Add(card);
-            return Ok(card.idCard);
+            try{
+                await _creditCardRepository.Add(card);
+                acr.response = card.idCard.ToString();
+                return Ok(acr);
+            }catch{
+                acr.response = "Card already register";
+                return Ok(acr);
+            }
         }
 
         // PUT api/<CreditCardController>

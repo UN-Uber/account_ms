@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+//using static System.Exception;
 using System.Threading.Tasks;
 using account_ms.Dtos;
 using account_ms.Models;
@@ -45,9 +46,10 @@ namespace account_ms.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreateClient(CreateClientDto createClientDto)
+        public async Task<ActionResult<AutenticateClientResponse>> CreateClient(CreateClientDto createClientDto)
         {
             PassCrip passCrip = new PassCrip();
+            AutenticateClientResponse acr = new AutenticateClientResponse();
             var client = new Client
             {
                 fName = createClientDto.fName,
@@ -59,8 +61,15 @@ namespace account_ms.Controllers
                 password = passCrip.hashPass(createClientDto.password),
                 image = createClientDto.image
             };
-            await _clientRepository.Add(client);
-            return Ok(client.idClient);
+            try{
+                await _clientRepository.Add(client);
+                acr.response = client.idClient.ToString();
+                return Ok(acr);
+            }catch{
+                acr.response = "Email or phone number already register";
+                return Ok(acr);
+            }
+            
         }
 
         [HttpDelete("{id}")]
