@@ -8,13 +8,13 @@ namespace account_ms.Services
     public class VerifyPass
     {   
         PassCrip passCrip = new PassCrip();
-        public string verify(AtenticateClientDto acd, Client client)
+        public bool verify(AtenticateClientDto acd, Client client)
         {   
             bool result = passCrip.rehash(acd.password, client.password);
             if(result){
-                return("Correct");
+                return(true);
             }else{
-                return("Incorrect");
+                return(false);
             }
         }
     }

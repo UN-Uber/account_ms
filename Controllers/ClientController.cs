@@ -123,7 +123,7 @@ namespace account_ms.Controllers
         } 
 
         [HttpPost("enter")]
-        public async Task<ActionResult<AutenticateClientResponse>> Autenticate(AtenticateClientDto acd)
+        public async Task<ActionResult<Object>> Autenticate(AtenticateClientDto acd)
         {   
             var client = new Client();
             if(acd.email == ""){
@@ -134,12 +134,19 @@ namespace account_ms.Controllers
 
             AutenticateClientResponse acr = new AutenticateClientResponse();
             if(client.fName == null){
-                acr.response = "Email nor Number found";
+                acr.response = "Email or not Number found";
                 return Ok(acr);
             }else{
                 VerifyPass verPass = new VerifyPass();
-                acr.response = verPass.verify(acd, client);
-                return Ok(acr);
+                bool response = verPass.verify(acd, client);
+                if(response)
+                {
+                    return Ok(client);
+                }else{
+                    acr.response = "Incorrect Password";
+                    return Ok(acr);    
+                }
+                
             }
         }
     }
