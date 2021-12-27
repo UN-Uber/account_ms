@@ -81,8 +81,13 @@ namespace account_ms.Controllers
                 cvv = updateCreditCardDtos.cvv,
                 dueDate = updateCreditCardDtos.dueDate
             };
-            await _creditCardRepository.Update(card);
-            return Ok();
+            try{
+                await _creditCardRepository.Update(card);
+                return Ok();
+            }catch{
+                return BadRequest("Card Numbers cannnot be repeated");
+            }
+            
         }
 
         // DELETE api/<CreditCardController>/5

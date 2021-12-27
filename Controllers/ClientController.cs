@@ -105,11 +105,15 @@ namespace account_ms.Controllers
                 password = passCrip.hashPass(updateClientDto.password),
                 image = updateClientDto.image
             };
-            await _clientRepository.Update(client);
-            return Ok();
+            try{
+                await _clientRepository.Update(client);
+                return Ok();
+            }catch{
+                return BadRequest("Email or number have already been registered");
+            }
+            
         }
 
-        
         [HttpGet("cards/{id}")]
         public async  Task<ActionResult> GetCards(int id)
         {
@@ -126,13 +130,19 @@ namespace account_ms.Controllers
         public async Task<ActionResult<Object>> Autenticate(AtenticateClientDto acd)
         {   
             var client = new Client();
-            if(acd.email == ""){
-                client = await _clientRepository.getTelNumber(acd.telNumber);
+            AutenticateClientResponse acr = new AutenticateClientResponse();
+            if(acd.email == null || acd.email == ""){
+                try{
+                    long number = long.Parse(acd.telNumber);
+                    client = await _clientRepository.getTelNumber(number);
+                }catch{
+                    acr.response = "Wrong Data";
+                    return Ok(acr);
+                }
             }else{
                 client = await _clientRepository.getEmail(acd.email);
             }
 
-            AutenticateClientResponse acr = new AutenticateClientResponse();
             if(client.fName == null){
                 acr.response = "Email or not Number found";
                 return Ok(acr);
@@ -146,7 +156,6 @@ namespace account_ms.Controllers
                     acr.response = "Incorrect Password";
                     return Ok(acr);    
                 }
-                
             }
         }
     }
