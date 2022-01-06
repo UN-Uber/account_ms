@@ -102,9 +102,15 @@ namespace account_ms.Controllers
                 telNumber = updateClientDto.telNumber,
                 active = updateClientDto.active,
                 email = updateClientDto.email,
-                password = passCrip.hashPass(updateClientDto.password),
-                image = updateClientDto.image
+                image = updateClientDto.image,
+                password = ""
             };
+
+            //Pequeña corrección en la contraseña para que admita cambios sin moficar la contraseña.
+            if(updateClientDto.password != ""){
+                    client.password = passCrip.hashPass(updateClientDto.password);
+            }
+
             try{
                 await _clientRepository.Update(client);
                 return Ok();
@@ -158,5 +164,53 @@ namespace account_ms.Controllers
                 }
             }
         }
+
+        [HttpPut("changePass/{id}")]
+        public async Task<ActionResult<Object>> ChangePassword(ChangePasswordDto cpdto, int id)
+        {
+            AutenticateClientResponse acr = new AutenticateClientResponse();
+            var clientEx = await _clientRepository.Get(id);
+            PassCrip passCrip = new PassCrip();
+            if (clientEx == null) { 
+                return NotFound();
+            }
+
+            AtenticateClientDto acd = new AtenticateClientDto
+            {
+                email = cpdto.email,
+                telNumber = cpdto.telNumber,
+                password = cpdto.password
+            }; 
+
+            VerifyPass verPass = new VerifyPass();
+            bool response = verPass.verify(acd, clientEx);
+            if(!response){
+                acr.response = "Wrong Old Password";
+                return Ok(acr);
+            }else{
+                Client client = new Client
+                {
+                    idClient = id,
+                    fName = cpdto.fName,
+                    sName = cpdto.sName,
+                    sureName = cpdto.sureName,
+                    telNumber = long.Parse(cpdto.telNumber),
+                    active = cpdto.active,
+                    email = cpdto.email,
+                    image = cpdto.image,
+                    password = passCrip.hashPass(cpdto.newPassword)
+                };
+
+                try{
+                    await _clientRepository.Update(client);
+                    acr.response = "Password Changed";
+                    return Ok(acr);
+                }catch{
+                    acr.response = "Email or number have already been registered";
+                    return Ok(acr);
+                }
+            }
+        }
+
     }
 }

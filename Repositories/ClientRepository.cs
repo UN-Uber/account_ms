@@ -52,8 +52,12 @@ namespace account_ms.Repositories
                 clientUp.active = client.active;
                 clientUp.email = client.email;
                 clientUp.fName =  client.fName;
-                clientUp.password = client.password;
-                clientUp.sName = client.sureName;
+                if(client.password == ""){
+                    clientUp.password = clientUp.password;     
+                }else{
+                    clientUp.password = client.password;
+                }
+                clientUp.sName = client.sName;
                 clientUp.telNumber = client.telNumber;
                 clientUp.sureName = client.sureName;
                 clientUp.image = client.image;
