@@ -45,6 +45,36 @@ namespace account_ms.Controllers
         }
 
 
+        [HttpGet("numberClient/{number}")]
+        public async Task<ActionResult<Client>> GetClientNum(long number)
+        {
+            var client = await _clientRepository.getTelNumber(number);
+            if (client.fName == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(client);
+            }
+        }
+
+        [HttpGet("numberEmail/{number}")]
+        public async Task<ActionResult<AutenticateClientResponse>> GetEmailNumber(long number)
+        {
+            var client = await _clientRepository.getTelNumber(number);
+            AutenticateClientResponse acr = new AutenticateClientResponse();
+            if (client.fName == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                acr.response = client.email;
+                return Ok(acr);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<AutenticateClientResponse>> CreateClient(CreateClientDto createClientDto)
         {
