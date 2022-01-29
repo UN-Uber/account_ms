@@ -4,4 +4,4 @@
     args: ['up', '-d']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['tag', 'account_ms_account_ms:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
-  images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
