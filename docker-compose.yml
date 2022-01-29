@@ -10,6 +10,7 @@ services:
     image: postgres:latest
     ports: 
       - "5432:5432"
+    container_name: postgres_image_container
     restart: always
     environment:
       POSTGRES_USER: "admin"
@@ -29,5 +30,6 @@ services:
       - "8000:80"
     depends_on:
       - "postgres_image"
+    container_name: account_image_container
     networks:
       - dockerapi-dev
