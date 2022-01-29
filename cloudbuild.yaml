@@ -3,5 +3,5 @@
   - name: 'docker/compose:1.26.2'
     args: ['up', '-d']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'account_ms_account_ms:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+    args: ['tag', 'account_ms', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
