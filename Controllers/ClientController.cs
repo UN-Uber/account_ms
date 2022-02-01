@@ -208,7 +208,7 @@ namespace account_ms.Controllers
             AtenticateClientDto acd = new AtenticateClientDto
             {
                 email = cpdto.email,
-                telNumber = cpdto.telNumber,
+                telNumber = cpdto.telNumber.ToString(),
                 password = cpdto.password
             }; 
 
@@ -224,7 +224,7 @@ namespace account_ms.Controllers
                     fName = cpdto.fName,
                     sName = cpdto.sName,
                     sureName = cpdto.sureName,
-                    telNumber = long.Parse(cpdto.telNumber),
+                    telNumber = cpdto.telNumber,
                     active = cpdto.active,
                     email = cpdto.email,
                     image = cpdto.image,
