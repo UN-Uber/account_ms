@@ -53,7 +53,6 @@ namespace account_ms
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "account_ms v1"));
             }else{
                 app.UseExceptionHandler("/error");
-                app.UseReverseProxyHttpsEnforcer();
             }
 
             app.UseAuthentication();
