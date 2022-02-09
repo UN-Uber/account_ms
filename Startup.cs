@@ -55,13 +55,8 @@ namespace account_ms
                 app.UseExceptionHandler("/error");
             }
 
-            app.UseAuthentication();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

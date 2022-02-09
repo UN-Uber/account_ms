@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 WORKDIR /app
 
 EXPOSE 5005
-EXPOSE 443
 
 COPY *.csproj ./
 RUN dotnet restore
